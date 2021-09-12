@@ -1,0 +1,58 @@
+# Tic Tac Toe Game
+
+import random 
+
+board=[" "]*9 
+
+def draw_board(board):
+    row1="{}|{}|{}".format(board[0],board[1],board[2])
+    row2="{}|{}|{}".format(board[3],board[4],board[5])
+    row3="{}|{}|{}".format(board[6],board[7],board[8])
+    print('\n'+row1+'\n'+row2+'\n'+row3)
+
+def user_move(board, user_type):
+    user_choice=int(input("\t Choose Space between 1-9: "))-1
+    if board[user_choice]!=' ':
+        print("\n Space Occupied. Try Again")
+        user_move(board,user_type)
+    else: 
+        board[user_choice]=user_type
+        available_spaces.remove(user_choice)
+
+def comp_move(board, user_type):
+    computer_choice=random.choice(available_spaces) 
+    board[computer_choice]=user_type
+    available_spaces.remove(computer_choice)
+
+def check_win(board,x_o):
+    if board[0]==x_o and board[1]==x_o and board[2]==x_o or board[3]==x_o and board[4]==x_o and board[5]==x_o or board[6]==x_o and board[7]==x_o and board[8]==x_o or board[0]==x_o and board[3]==x_o and board[6]==x_o or board[1]==x_o and board[4]==x_o and board[7]==x_o or board[2]==x_o and board[5]==x_o and board[8]==x_o or board[0]==x_o and board[4]==x_o and board[8]==x_o or board[2]==x_o and board[4]==x_o and board[6]==x_o:
+        play=False
+        print("\n Hooray! {} won!".format(x_o))
+    else:
+        play=True
+    return play
+
+
+board=[" "]*9 
+available_spaces=[0,1,2,3,4,5,6,7,8]
+draw_board(board)
+play=True
+comp_or_human= input("\t Would you like to play with computer or human?? (c or h): ")
+
+while play==True:
+
+    user_move(board,'x')
+    play=check_win(board,'x')
+    if play==False:
+        continue
+    draw_board(board)
+    if comp_or_human=='h':
+        user_move(board, 'o')
+    elif comp_or_human=='c':
+        comp_move(board, 'o')
+    play=check_win(board,'o')
+    draw_board(board)
+    
+print("\n End of Game")
+
+ 
